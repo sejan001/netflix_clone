@@ -24,7 +24,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       print("user aayo ${user.email}");
       print("user aayo ${user.token}");
 
-      SharedPreferenecesService.setString(key: 'token', value: user.token);
+      String? saveUser = SharedPreferenecesService.getString(key: "saveUser");
+      if (saveUser == 'true') {
+         SharedPreferenecesService.setString(key: 'token', value: user.token);
+      }
 
       // final Sejan = SharedPreferenecesService.getString(key: 'token');
       SharedPreferenecesService.setString(

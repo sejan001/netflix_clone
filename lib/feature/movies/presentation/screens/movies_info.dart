@@ -60,7 +60,9 @@ class _MoviesInfoState extends State<MoviesInfo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.movie.movie.toString(),style: TextStyle(color: Colors.white),),
+                  Text(widget.movie.movie.toString(),style: TextStyle(color: Colors.white),
+                     maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,),
                    Row(
                                 children: [
                                   Text(
@@ -69,25 +71,27 @@ class _MoviesInfoState extends State<MoviesInfo> {
                                       color: Colors.white,
                                   fontSize: 14
                                     ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                 
                                   ),
                                   Icon(Icons.star,color: Colors.yellow,size: 10,),
-                                  SizedBox(width: width*.5,),
-                                  TextButton(
-                                    style: TextButton.styleFrom(backgroundColor: Colors.white),
-                                    onPressed: ()async{
-                                      Uri url = Uri.parse(widget.movie.imdbUrl.toString());
-try {
-    await launchUrl(url);
-  } catch (e) {
-    print('Error launching URL: $e');
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Failed to open URL: $e')),
-    );
-  }}, child: Row(
-                                    children: [Icon(Icons.play_arrow),SizedBox(width: width*.02,), Text("Watch Now",style: TextStyle(color: Colors.black),)],
-                                  ))
+                                  SizedBox(width: width*.4,),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(backgroundColor: Colors.white),
+                                      onPressed: ()async{
+                                        Uri url = Uri.parse(widget.movie.imdbUrl.toString());
+                                    try {
+                                        await launchUrl(url);
+                                      } catch (e) {
+                                        print('Error launching URL: $e');
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text('Failed to open URL: $e')),
+                                        );
+                                      }}, child: Row(
+                                      children: [Icon(Icons.play_arrow),SizedBox(width: width*.02,), Text("Watch Now",style: TextStyle(color: Colors.black),)],
+                                    )),
+                                  )
                                 ],
                               ),
                 ],

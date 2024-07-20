@@ -23,6 +23,7 @@ dependencies:
   shared_preferences: ^2.2.3
   google_fonts: ^6.2.1
   lottie: ^3.1.2
+  shimmer: ^3.0.0
 
 
 dev_dependencies:
@@ -43,5 +44,6 @@ flutter:
     - lib/assets/images/netflix_image.jpg
     - lib/assets/images/drawer.png
     - lib/assets/appLogo.png
-    - lib/assets/videos/netflixGif.gif
+   
     - lib/assets/images/background.jpg
+    - lib/assets/images/pp.jpg

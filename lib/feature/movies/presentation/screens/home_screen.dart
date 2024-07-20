@@ -2,10 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_movies/feature/movies/data/models/user_model.dart';
+import 'package:project_movies/feature/movies/domain/services/sharedprefs_services.dart';
 import 'package:project_movies/feature/movies/presentation/bloc/movies_bloc/bloc/movies_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final User user;
+  const HomeScreen({super.key, required this.user});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -120,6 +124,21 @@ class _HomeScreenState extends State<HomeScreen> {
               
 
             ),
+             SizedBox(height: height*.01,),
+              GestureDetector(
+                onTap: (){
+                  SharedPreferenecesService.removeString(key: 'token');
+                  SharedPreferenecesService.removeString(key: "saveUser");
+                    SharedPreferenecesService.removeString(key: "currentUser");
+                  context.go('/');
+                },
+                child: ListTile(
+                leading: Icon(Icons.logout_outlined,color: Colors.white,),
+                title: Text("Log Out",style: TextStyle(color: Colors.white,fontSize: 13),),
+          
+                
+                            ),
+              ),
             ],
           ),
         ),
@@ -152,17 +171,46 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.white,
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  onTap: (){
+                    context.push("/profile",extra: widget.user);
+                  },
+                  child: CircleAvatar(
+                    backgroundImage: widget.user.image != null? NetworkImage(widget.user.image.toString()) : AssetImage("lib/assets/images/pp.jpg")
+                  ),
+                ),
+              )
             ],
           ),
           BlocBuilder<MoviesBloc, MoviesState>(
             builder: (context, state) {
-              if (state is MoviesLoading) {
-                return SliverToBoxAdapter(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              }
+             if (state is MoviesLoading) {
+  return SliverToBoxAdapter(
+    child: Shimmer.fromColors(
+      baseColor: Colors.grey,
+      highlightColor: Colors.grey[300]!,
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          childAspectRatio: (width / height) * 1.5,
+        ),
+        itemCount: 50, 
+        itemBuilder: (context, index) {
+          return Container(
+            color: Colors.grey[800], 
+          );
+        },
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+      ),
+    ),
+  );
+}
+
               if (state is MoviesLoaded) {
                 return SliverGrid(
                   
