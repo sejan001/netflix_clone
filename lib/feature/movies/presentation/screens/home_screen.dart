@@ -290,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      backgroundColor: Color.fromARGB(255, 50, 49, 49),
+      backgroundColor: Color.fromARGB(255, 30, 27, 27),
     );
   }
 }

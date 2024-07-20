@@ -200,8 +200,8 @@ bool saveUser = false;
                                 
                                   Row(children: [
                                     Checkbox(
-                                      activeColor: Colors.white,
-                                      checkColor: Colors.red,
+                                      activeColor: const Color.fromRGBO(255, 255, 255, 1),
+                                      checkColor: Colors.green,
                                       value: saveUser, onChanged: (value){
                                       setState(() {
                       saveUser = !saveUser;
@@ -222,11 +222,10 @@ bool saveUser = false;
                                     Text("Remember Me",style: TextStyle(color: Colors.white,
                                     fontSize: 11,fontWeight: FontWeight.w100),),
                                       SizedBox(
-                                  width: width*.3,
+                                  width: width*.4,
                                   ),
-                               TextButton(
-                                
-                                onPressed: () async{
+                               GestureDetector(
+                                onTap: () async{
                                 await  launchUrl(Uri.parse("https://help.netflix.com/en"));
                                 }, child: Text("Need help?",
                                style: TextStyle(fontSize: 11,color: Colors.white
@@ -275,8 +274,13 @@ bool saveUser = false;
                                             Text("New to Netflix?",style: TextStyle(color: Colors.white,
                                     fontSize: 13,fontWeight: FontWeight.w100),),
                                        SizedBox(width: width * .01),
-                                       Text("Sign up now",style: TextStyle(color: Colors.white,
-                                    fontSize: 11,fontWeight: FontWeight.w700),),
+                                       GestureDetector(
+                                        onTap: () async{
+                                          await launchUrl(Uri.parse("https://www.netflix.com/signup"));
+                                        },
+                                         child: Text("Sign up now",style: TextStyle(color: Colors.white,
+                                                                             fontSize: 11,fontWeight: FontWeight.w700),),
+                                       ),
                                     
                                     ],
                                   ),
