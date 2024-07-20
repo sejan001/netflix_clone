@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:project_movies/feature/movies/presentation/bloc/movies_bloc/bloc/movies_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -143,6 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
             actions: [
               IconButton(
                 onPressed: () {
+                  context.push("/search");
              
                 },
                 icon: Icon(
@@ -173,53 +175,58 @@ class _HomeScreenState extends State<HomeScreen> {
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       final movie = state.movies[index];
-                      return Container(
-                        
-                        decoration: BoxDecoration(
-                        color: Colors.black,
-                        border: Border.all(color: Colors.white)
-                      ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: CachedNetworkImage(
-                                  imageUrl: movie.image.toString(),
-                                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) => Image.network("https://i.pinimg.com/736x/7f/9f/6b/7f9f6b4b5cc2de478502a18b823eb15a.jpg",fit: BoxFit.cover,),
-                                  fit: BoxFit.cover,
-                                  height: double.infinity,
-                                  width: double.infinity,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                movie.movie.toString(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    movie.rating.toString(),
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                  fontSize: 10
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                      return GestureDetector(
+                        onTap: (){
+                          context.push("/moviesInfo",extra: movie);
+                        },
+                        child: Container(
+                          
+                          decoration: BoxDecoration(
+                          color: Colors.black,
+                          border: Border.all(color: Colors.white)
+                        ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: CachedNetworkImage(
+                                    imageUrl: movie.image.toString(),
+                                    placeholder: (context, url) =>  Image.network("https://i.pinimg.com/736x/7f/9f/6b/7f9f6b4b5cc2de478502a18b823eb15a.jpg",fit: BoxFit.cover,),
+                                    errorWidget: (context, url, error) => Image.network("https://i.pinimg.com/736x/7f/9f/6b/7f9f6b4b5cc2de478502a18b823eb15a.jpg",fit: BoxFit.cover,),
+                                    fit: BoxFit.cover,
+                                    height: double.infinity,
+                                    width: double.infinity,
                                   ),
-                                  Icon(Icons.star,color: Colors.yellow,size: 10,)
-                                ],
-                              ),
-                            ],
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  movie.movie.toString(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      movie.rating.toString(),
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                    fontSize: 10
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Icon(Icons.star,color: Colors.yellow,size: 10,)
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );

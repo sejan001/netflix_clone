@@ -27,4 +27,5 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
      }
      ;
   }
+  
 }
