@@ -13,8 +13,10 @@ import 'package:project_movies/feature/movies/presentation/screens/movies_info.d
 import 'package:project_movies/feature/movies/presentation/screens/profile_screen.dart';
 import 'package:project_movies/feature/movies/presentation/screens/search_screen.dart';
 
-void main() {
-  SharedPreferenecesService.init();
+Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferenecesService.init();
   runApp(const MyApp());
 }
 

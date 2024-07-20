@@ -137,68 +137,76 @@ bool saveUser = false;
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 children: [
-                                  TextFormField(
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                    ),
-                                    validator: (value) {
-                                      if (value!.length > 100) {
-                                        return "Can't have more than 100 letters";
-                                      }
-                                      if (value.length <= 0 || value.isEmpty) {
-                                        return "Enter a username";
-                                      }
-                                    },
-                                    controller: _username,
-                                    decoration: InputDecoration(
-                                       border: OutlineInputBorder(),
-                                      
-                                      hintText: "Username",
-                                       errorStyle: TextStyle(color: Colors.amber),
-                                      
-                                      hintStyle: TextStyle(
+                                  Container(
+                                   width: width * 0.75,
+                                    child: TextFormField(
+                                      style: TextStyle(
                                         color: Colors.white,
-                                        
-                                        fontSize: 14,
+                                        fontSize: 18,
                                       ),
-                                  
+                                      validator: (value) {
+                                        if (value!.length > 100) {
+                                          return "Can't have more than 100 letters";
+                                        }
+                                        if (value.length <= 0 || value.isEmpty) {
+                                          return "Enter a username";
+                                        }
+                                      },
+                                      controller: _username,
+                                      decoration: InputDecoration(
+                                         border: OutlineInputBorder(),
+                                        
+                                        hintText: "Username",
+                                         errorStyle: TextStyle(color: Colors.amber),
+                                        
+                                        hintStyle: TextStyle(
+                                          color: Colors.white,
+                                          
+                                          fontSize: 14,
+                                        ),
+                                    
+                                      ),
                                     ),
                                   ),
                                   SizedBox(height: height * .01),
-                                  TextFormField(
-                                    
-                                    style: TextStyle(
-                                    color: Colors.white,
-                                      fontSize: 18,
-                                    ),
-                                    obscureText: true,
-                                    validator: (value) {
-                                      if (value!.length > 100) {
-                                        return "Can't have more than 100 letters";
-                                      }
-                                      if (value!.length <= 0 || value.isEmpty) {
-                                        return "Enter a password";
-                                      }
-                                    },
-                                    controller: _password,
-                                    decoration: InputDecoration(
+                                  Container(
+                                     width: width * 0.75,
+                                    child: TextFormField(
                                       
-                                  
-                                      border: OutlineInputBorder(),
-                                      suffixIconColor: Colors.blue,
-                                      errorStyle: TextStyle(color: Colors.amber),
-                                      
-                                      hintText: "Password",
-                                      hintStyle: TextStyle(
-                                         color: Colors.white,
-                                        fontSize: 14,
+                                      style: TextStyle(
+                                        
+                                      color: Colors.white,
+                                        fontSize: 18,
                                       ),
+                                      obscureText: true,
+                                      validator: (value) {
+                                        if (value!.length > 100) {
+                                          return "Can't have more than 100 letters";
+                                        }
+                                        if (value!.length <= 0 || value.isEmpty) {
+                                          return "Enter a password";
+                                        }
+                                      },
+                                      controller: _password,
+                                      decoration: InputDecoration(
+                                        
                                     
+                                        border: OutlineInputBorder(),
+                                        suffixIconColor: Colors.blue,
+                                        errorStyle: TextStyle(color: Colors.amber),
+                                        
+                                        hintText: "Password",
+                                        hintStyle: TextStyle(
+                                           color: Colors.white,
+                                          fontSize: 14,
+                                        ),
+                                      
+                                      ),
                                     ),
                                   ),
                                 
                                   Row(children: [
+                                    SizedBox(width: width*.06,),
                                     Checkbox(
                                       activeColor: const Color.fromRGBO(255, 255, 255, 1),
                                       checkColor: Colors.green,
@@ -219,10 +227,11 @@ bool saveUser = false;
                                                               });
                                       
                                     }),
+
                                     Text("Remember Me",style: TextStyle(color: Colors.white,
                                     fontSize: 11,fontWeight: FontWeight.w100),),
                                       SizedBox(
-                                  width: width*.4,
+                                  width: width*.3,
                                   ),
                                GestureDetector(
                                 onTap: () async{
@@ -271,6 +280,7 @@ bool saveUser = false;
                       
                                   Row(
                                     children: [
+                                            SizedBox(width: width*.06,),
                                             Text("New to Netflix?",style: TextStyle(color: Colors.white,
                                     fontSize: 13,fontWeight: FontWeight.w100),),
                                        SizedBox(width: width * .01),
@@ -285,8 +295,16 @@ bool saveUser = false;
                                     ],
                                   ),
                                     SizedBox(height: height * .01),
-                                   Text("This Page is Protected by Google Captcha for security purpose to ensure you are not a robot",style: TextStyle(color: Colors.white,
-                                    fontSize: 11,fontWeight: FontWeight.w100),),
+                                    
+                                   Row(
+                                     children: [
+                                            SizedBox(width: width*.06,),
+                                       Expanded(
+                                         child: Text("This Page is Protected by Google Captcha for security purpose to ensure you are not a robot",style: TextStyle(color: Colors.white,
+                                          fontSize: 11,fontWeight: FontWeight.w100),),
+                                       ),
+                                     ],
+                                   ),
                                     GestureDetector(
                                       onTap: () async{
                                      await   launchUrl(Uri.parse("https://www.google.com/recaptcha/about/"));
