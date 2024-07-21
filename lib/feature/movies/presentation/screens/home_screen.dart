@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_movies/feature/movies/data/models/movies_model.dart';
 import 'package:project_movies/feature/movies/data/models/user_model.dart';
 import 'package:project_movies/feature/movies/domain/services/sharedprefs_services.dart';
 import 'package:project_movies/feature/movies/presentation/bloc/movies_bloc/bloc/movies_bloc.dart';
@@ -17,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
+  List<MoviesModel> movies = [];
   void initState() {
     super.initState();
     BlocProvider.of<MoviesBloc>(context).add(fetchMovies());
@@ -163,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
             actions: [
               IconButton(
                 onPressed: () {
-                  context.push("/search");
+                  context.push("/search",extra: movies);
              
                 },
                 icon: Icon(
@@ -212,6 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
               if (state is MoviesLoaded) {
+                
                 return SliverGrid(
                   
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -222,7 +225,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
+                      
+                        movies = state.movies;
+                        print("list ma gayoooo $movies");
+                    
+                    
                       final movie = state.movies[index];
+                      
                       return GestureDetector(
                         onTap: (){
                           context.push("/moviesInfo",extra: movie);

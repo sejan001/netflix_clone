@@ -289,7 +289,7 @@ bool saveUser = false;
                                           await launchUrl(Uri.parse("https://www.netflix.com/signup"));
                                         },
                                          child: Text("Sign up now",style: TextStyle(color: Colors.white,
-                                                                             fontSize: 11,fontWeight: FontWeight.w700),),
+                                                                             fontSize: 12,fontWeight: FontWeight.w700),),
                                        ),
                                     
                                     ],

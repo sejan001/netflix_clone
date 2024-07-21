@@ -18,7 +18,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: const Color.fromARGB(255, 58, 54, 54),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(backgroundColor:  const Color.fromARGB(255, 58, 54, 54) ,),
+          SliverAppBar(
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor:  const Color.fromARGB(255, 58, 54, 54) ,),
           SliverToBoxAdapter(
             child: Column(
               children: [

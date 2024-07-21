@@ -61,7 +61,11 @@ final GoRouter _router = GoRouter(routes: [
     },
   ),
   
-  GoRoute(path: "/search", builder: (context, state) => SearchScreen()),
+  GoRoute(path: "/search", builder: (context, state) {
+final movies = state.extra as List<MoviesModel>;
+return SearchScreen(movies : movies);
+
+  }),
     GoRoute(path: "/profile", builder: (context, state) {
       final user = state.extra as User;
       return ProfileScreen(user : user);
