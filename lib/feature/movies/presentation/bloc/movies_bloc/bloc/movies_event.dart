@@ -4,5 +4,7 @@ part of 'movies_bloc.dart';
 sealed class MoviesEvent {}
 
 final class fetchMovies extends MoviesEvent{
-
+  final int? id;
+  final String? searchQuery;
+fetchMovies({ this.id, this.searchQuery});
 }

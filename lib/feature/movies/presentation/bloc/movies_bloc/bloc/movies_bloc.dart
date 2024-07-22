@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:project_movies/feature/movies/data/models/movies_model.dart';
@@ -16,8 +18,9 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
 
     emit(MoviesLoading());
      try {
-      final List<MoviesModel> movies = await MoviesRepositories().fetchMovies();
+      final List<MoviesModel> movies = await MoviesRepositories().fetchMovies(searchQuery: event.searchQuery);
       print("movies fetch vayoo");
+      print(event.searchQuery);
       emit(MoviesLoaded(movies: movies));
        
      } catch (e) {

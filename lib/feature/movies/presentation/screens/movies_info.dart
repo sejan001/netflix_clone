@@ -12,13 +12,8 @@ class MoviesInfo extends StatefulWidget {
 }
 
 class _MoviesInfoState extends State<MoviesInfo> {
-  MoviesModel mockMovie = MoviesModel(
-    id: 4,
-    movie: "Pulp Fiction",
-    rating: 8.9,
-    image: "images/pulp_fiction.jpg",
-    imdbUrl: "https://www.imdb.com/title/tt0110912/"
-  );
+  bool showSearchBar = false;
+
 @override
   void initState() {
     // TODO: implement initState
@@ -27,21 +22,25 @@ class _MoviesInfoState extends State<MoviesInfo> {
   }
   @override
   Widget build(BuildContext context) {
+    final movie = widget.movie;
       double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 57, 56, 56),
-      appBar: AppBar(backgroundColor:  const Color.fromARGB(255, 57, 56, 56),),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor:  const Color.fromARGB(255, 57, 56, 56),),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            
             iconTheme: IconThemeData(color: Colors.white),
             automaticallyImplyLeading: false,
             expandedHeight: 250.0, // Set the height of the SliverAppBar
             flexibleSpace: FlexibleSpaceBar(
               background: CachedNetworkImage(
-                imageUrl: widget.movie.image.toString(),
+                imageUrl: widget.movie.poster.toString(),
                 placeholder: (context, url) => Image.network(
                   "https://i.ytimg.com/vi/GV3HUDMQ-F8/hqdefault.jpg",
                   fit: BoxFit.cover,
@@ -60,11 +59,25 @@ class _MoviesInfoState extends State<MoviesInfo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.movie.movie.toString(),style: TextStyle(color: Colors.white),
+                  Text(widget.movie.title.toString(),style: TextStyle(color: Colors.white),
                      maxLines: 1,
                                     overflow: TextOverflow.ellipsis,),
+                                                       Wrap(
+                      spacing: 8,
+                      children: movie.genre!.map((genre) {
+                        return Chip(
+                          color: MaterialStateProperty.all(Colors.grey),
+                          label: Text(genre),
+                        );
+                      }).toList(),
+                    ),
+
                    Row(
                                 children: [
+                                       Text(movie.year.toString(),style: TextStyle(
+                                        color: Colors.white
+                                       ),),
+                                       SizedBox(width: width*.03,),
                                   Text(
                                     widget.movie.rating.toString(),
                                     style: TextStyle(
@@ -73,14 +86,16 @@ class _MoviesInfoState extends State<MoviesInfo> {
                                     ),
                                  
                                   ),
+                             
                                   Icon(Icons.star,color: Colors.yellow,size: 10,),
-                                  SizedBox(width: width*.4,),
+                                  SizedBox(width: width*.3,),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextButton(
-                                      style: TextButton.styleFrom(backgroundColor: Colors.white),
+                                      style: TextButton.styleFrom(backgroundColor: Colors.white,
+                                      ),
                                       onPressed: ()async{
-                                        Uri url = Uri.parse(widget.movie.imdbUrl.toString());
+                                        Uri url = Uri.parse(widget.movie.website.toString());
                                     try {
                                         await launchUrl(url);
                                       } catch (e) {
@@ -94,6 +109,23 @@ class _MoviesInfoState extends State<MoviesInfo> {
                                   )
                                 ],
                               ),
+                              GestureDetector(
+                                onTap: ()async{
+                                await launchUrl(Uri.parse(movie.trailer.toString()));
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.tv,color: Colors.white,),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text("Trailer",style: TextStyle(color: Colors.white),),
+                                    )
+                                    
+                                  ],
+                                ),
+                              ),
+
+                              Text(movie.plot.toString(),style: TextStyle(color: Color.fromARGB(255, 171, 163, 163)),)
                 ],
               ),
             ),

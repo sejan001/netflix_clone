@@ -10,4 +10,9 @@ final class MoviesLoaded extends MoviesState {
  MoviesLoaded({required this.movies});
 
 }
+final class MovieLoaded extends MoviesState {
+ final List<MoviesModel> movies ;
+ MovieLoaded({required this.movies});
+
+}
 final class MoviesError extends MoviesState {}

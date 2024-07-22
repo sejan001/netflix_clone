@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_movies/feature/movies/data/models/movies_model.dart';
 import 'package:project_movies/feature/movies/data/models/user_model.dart';
@@ -11,7 +12,7 @@ import 'package:project_movies/feature/movies/presentation/screens/home_screen.d
 import 'package:project_movies/feature/movies/presentation/screens/login_screen.dart';
 import 'package:project_movies/feature/movies/presentation/screens/movies_info.dart';
 import 'package:project_movies/feature/movies/presentation/screens/profile_screen.dart';
-import 'package:project_movies/feature/movies/presentation/screens/search_screen.dart';
+
 
 Future<void> main() async {
 
@@ -25,23 +26,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => MoviesBloc(),
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => MoviesBloc(),
+          ),
+          BlocProvider(
+            create: (context) => AuthBloc(),
+          ),
+        ],
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          routerConfig: _router,
         ),
-        BlocProvider(
-          create: (context) => AuthBloc(),
-        ),
-      ],
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        routerConfig: _router,
       ),
     );
   }
@@ -61,11 +65,7 @@ final GoRouter _router = GoRouter(routes: [
     },
   ),
   
-  GoRoute(path: "/search", builder: (context, state) {
-final movies = state.extra as List<MoviesModel>;
-return SearchScreen(movies : movies);
-
-  }),
+  
     GoRoute(path: "/profile", builder: (context, state) {
       final user = state.extra as User;
       return ProfileScreen(user : user);
