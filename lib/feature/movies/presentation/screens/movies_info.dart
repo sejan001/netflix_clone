@@ -1,10 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:project_movies/assets/datas/trailer_lists.dart';
 import 'package:project_movies/feature/movies/data/models/movies_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+
+
 
 class MoviesInfo extends StatefulWidget {
   final MoviesModel movie;
+
   const MoviesInfo({super.key, required this.movie});
 
   @override
@@ -12,14 +17,29 @@ class MoviesInfo extends StatefulWidget {
 }
 
 class _MoviesInfoState extends State<MoviesInfo> {
+
   bool showSearchBar = false;
+  late YoutubePlayerController _controller;
+    bool _isControllerReady = false;
 
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _controller = YoutubePlayerController.fromVideoId(
+      videoId: YoutubePlayerController.convertUrlToId(trailerUrls[widget.movie.title].toString()) ?? '',
+      params:  YoutubePlayerParams(
+        
+        mute: false,
+        showControls: true,
+        showFullscreenButton: true,
+      ),
+    );
+    
     
   }
+
+
   @override
   Widget build(BuildContext context) {
     final movie = widget.movie;
@@ -32,6 +52,7 @@ class _MoviesInfoState extends State<MoviesInfo> {
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor:  const Color.fromARGB(255, 57, 56, 56),),
       body: CustomScrollView(
+      
         slivers: [
           SliverAppBar(
             
@@ -39,18 +60,15 @@ class _MoviesInfoState extends State<MoviesInfo> {
             automaticallyImplyLeading: false,
             expandedHeight: 250.0, // Set the height of the SliverAppBar
             flexibleSpace: FlexibleSpaceBar(
-              background: CachedNetworkImage(
-                imageUrl: widget.movie.poster.toString(),
-                placeholder: (context, url) => Image.network(
-                  "https://i.ytimg.com/vi/GV3HUDMQ-F8/hqdefault.jpg",
-                  fit: BoxFit.cover,
-                ),
-                errorWidget: (context, url, error) => Image.network(
-                  "https://i.ytimg.com/vi/GV3HUDMQ-F8/hqdefault.jpg",
-                  fit: BoxFit.cover,
-                ),
-                fit: BoxFit.cover,
-              ),
+              background:  YoutubePlayerScaffold(
+              controller: _controller,
+              autoFullScreen: true,
+      
+              builder: (context, player) {
+                return player;
+              },
+            
+          ),
             ),
           ),
           SliverToBoxAdapter(
@@ -88,7 +106,7 @@ class _MoviesInfoState extends State<MoviesInfo> {
                                   ),
                              
                                   Icon(Icons.star,color: Colors.yellow,size: 10,),
-                                  SizedBox(width: width*.3,),
+                                  SizedBox(width: width*.4,),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextButton(
@@ -119,13 +137,58 @@ class _MoviesInfoState extends State<MoviesInfo> {
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text("Trailer",style: TextStyle(color: Colors.white),),
-                                    )
+                                    ),
+                                    SizedBox(width: width*.12,),
+                                    Text("laguages: ${movie.language}",style: TextStyle(color: Colors.white)),
+                                         SizedBox(width: width*.12,),
+                                     Row(children: [
+                                Icon(Icons.timelapse,color: Colors.white,),
+                                SizedBox(width: 5,),
+                                 Text("${movie.runtime.toString()} min",style: TextStyle(color: Colors.blue),),
+                              
+                                
+                              ],)
                                     
                                   ],
                                 ),
                               ),
+                           
+                              Text(movie.plot.toString(),style: TextStyle(color: Color.fromARGB(255, 171, 163, 163)),),
+                                 SizedBox(height: height*.01,),
 
-                              Text(movie.plot.toString(),style: TextStyle(color: Color.fromARGB(255, 171, 163, 163)),)
+                              Row(children: [
+                                Text("Actors:",style: TextStyle(color: Colors.white),),
+                                Expanded(
+                                  child: Wrap
+                                  (
+                                    spacing: 8,
+                                    children: movie.actors!.map((actor){
+                                    return Text("#$actor",style: TextStyle(color: Colors.blue), overflow: TextOverflow.ellipsis);
+                                  }).toList()),
+                                )
+                              ],),
+                               Row(children: [
+                                Text("Directors:",style: TextStyle(color: Colors.white),),
+                                SizedBox(width: 5,),
+                                 Text("#${movie.director.toString()}",style: TextStyle(color: Colors.blue),),
+                              
+                                
+                              ],),
+                               Row(children: [
+                                Text("Production:",style: TextStyle(color: Colors.white),),
+                                SizedBox(width: 5,),
+                                 Text("#${movie.production.toString()}",style: TextStyle(color: Colors.blue),),
+                              
+                                
+                              ],),
+                                Row(children: [
+                                Text("BoxOffice:",style: TextStyle(color: Colors.white),),
+                                SizedBox(width: 5,),
+                                 Text("${movie.boxOffice.toString()}",style: TextStyle(color: Colors.green),),
+                              
+                                
+                              ],)
+
                 ],
               ),
             ),

@@ -1,0 +1,22 @@
+Map<String, String> trailerUrls = {
+  "The Shawshank Redemption": "https://www.youtube.com/watch?v=6hB3S9bIaco", 
+  "The Godfather": "https://www.youtube.com/watch?v=sY1S34973zA", 
+  "The Dark Knight": "https://www.youtube.com/watch?v=EXeTwQWrcwY", 
+  "Pulp Fiction": "https://www.youtube.com/watch?v=s7EdQ4FqbhY", 
+  "Forrest Gump": "https://www.youtube.com/watch?v=bLvqoHBptjg", 
+  "Inception": "https://www.youtube.com/watch?v=8hP9D6kZseM", 
+  "The Matrix": "https://www.youtube.com/watch?v=vKQi3bBA1y8", 
+  "The Lord of the Rings: The Return of the King": "https://www.youtube.com/watch?v=r5X-hFf6Bwo", 
+  "The Dark Knight Rises": "https://www.youtube.com/watch?v=g8evyE9TuYk", 
+  "Interstellar": "https://www.youtube.com/watch?v=zSWdZVtXT7E", 
+  "Fight Club": "https://www.youtube.com/watch?v=SUXWAEX2jlg", 
+  "Gladiator": "https://www.youtube.com/watch?v=owK1cxD5i8E", 
+  "The Lord of the Rings: The Two Towers": "https://www.youtube.com/watch?v=LbfMDwc4azU", 
+  "The Silence of the Lambs": "https://www.youtube.com/watch?v=W6Mm8r0p0Ec", 
+  "The Departed": "https://youtu.be/r-MiSNsCdQ4?si=04YlRI1IJoDBYVde", 
+  "Saving Private Ryan": "https://youtu.be/9CiW_DgxCnQ?si=4nDg3ZlhU5CGC85Z", 
+  "The Prestige": "https://www.youtube.com/watch?v=o4gHCmTQDVI", 
+  "Glory": "https://www.youtube.com/watch?v=wG7tlR2JXwU", 
+  "The Avengers": "https://www.youtube.com/watch?v=eOrNdBpGMv8", 
+  "The Lion King": "https://www.youtube.com/watch?v=4sj1MT05lAA" 
+};

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_movies/feature/movies/data/models/movies_model.dart';
@@ -18,6 +19,7 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferenecesService.init();
+   await InAppWebViewController.setWebContentsDebuggingEnabled(true);
   runApp(const MyApp());
 }
 
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690),
+    
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -61,6 +63,7 @@ final GoRouter _router = GoRouter(routes: [
     path: '/moviesInfo',
     builder: (context, state) {
       final movie = state.extra as MoviesModel;
+      final url = state.path;
       return MoviesInfo(movie: movie);
     },
   ),

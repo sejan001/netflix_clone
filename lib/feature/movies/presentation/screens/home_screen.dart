@@ -232,6 +232,8 @@ class _HomeScreenState extends State<HomeScreen> {
               IconButton(
                 onPressed: () {
                   setState(() {
+                     
+ 
                       showSearchBar = !showSearchBar;
                       
                     });
@@ -300,11 +302,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     
                     
                       final movie = state.movies[index];
+                      
                       final poster = imageUrls[movie.title];
                       
                       return GestureDetector(
                         onTap: (){
-                          context.push("/moviesInfo",extra: movie);
+                          context.push("/moviesInfo",extra: movie,);
                         },
                         child: Container(
                           
